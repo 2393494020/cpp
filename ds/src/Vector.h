@@ -12,6 +12,10 @@ class Vector : public Container<T> {
 public:
     explicit Vector(int initSize = 0);
 
+    Vector(const Vector &rhs);
+
+    Vector(const Vector &&rhs);
+
     ~Vector() {
         delete[] objects;
     }
@@ -49,6 +53,21 @@ private:
 template<class T>
 Vector<T>::Vector(int initSize) :theSize{initSize}, theCapacity{initSize + SPARE_CAPACITY} {
     objects = new T[theCapacity];
+}
+
+template<class T>
+Vector<T>::Vector(const Vector &rhs):theSize{rhs.theSize}, theCapacity{rhs.theCapacity}, objects{nullptr} {
+    objects = new T[theCapacity];
+    for (int i = 0; i < theSize; ++i) {
+        objects[i] = rhs.objects[i];
+    }
+}
+
+template<class T>
+Vector<T>::Vector(const Vector &&rhs):theSize{rhs.theSize}, theCapacity{rhs.theCapacity}, objects{rhs.objects} {
+    rhs.theSize = 0;
+    rhs.theCapacity = 0;
+    rhs.objects = nullptr;
 }
 
 template<class T>

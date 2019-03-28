@@ -6,7 +6,7 @@ using namespace std;
 
 
 int main() {
-    Vector<int> v(10);
+    Vector<int> v;
     std::cout << v.size() << std::endl;
     return 0;
 }
