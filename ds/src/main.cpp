@@ -1,8 +1,12 @@
 #include <iostream>
 
-using  namespace std;
+#include "Vector.h"
+
+using namespace std;
+
 
 int main() {
-    std::cout << "hello world" << std::endl;
+    Vector<int> v(10);
+    std::cout << v.size() << std::endl;
     return 0;
 }
