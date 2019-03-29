@@ -8,15 +8,18 @@ using namespace std;
 
 void bubbleSort(int list[], int size) {
 
-    for (int j = size; j > 0; --j) {
+    for (int j = size - 1; j > 0; --j) {
         for (int i = 0; i < j; ++i) {
-            if (list[i] > list[j]) {
-                int temp = list[j];
-                list[j] = list[i];
+            if (list[i] > list[i + 1]) {
+                int temp = list[i + 1];
+                list[i + 1] = list[i];
                 list[i] = temp;
             }
         }
+        std::cout << list[j] << std::endl;
     }
+
+    std::cout << std::endl;
 
 
     for (int i = 0; i < size; ++i) {
@@ -25,7 +28,7 @@ void bubbleSort(int list[], int size) {
 }
 
 int main() {
-    int list[] = {33, 90, 40, 30, 70, 80, 55, 230, 199};
+    int list[] = {9, 8, 7, 5, 6, 4, 3, 2, 1};
     int size = 9;
     bubbleSort(list, size);
 
