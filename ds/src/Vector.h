@@ -37,7 +37,10 @@ public:
     }
 
     void pop() {
-
+        if (theSize > 0)
+            theSize -= 1;
+        else
+            theSize = 0;
     }
 
     void push(const T &theElement);
