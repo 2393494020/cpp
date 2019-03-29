@@ -7,7 +7,7 @@
 
 #include "Container.h"
 
-template<class T>
+template<typename T>
 class Vector : public Container<T> {
 public:
     explicit Vector(int initSize = 0);
