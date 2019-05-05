@@ -20,30 +20,47 @@ public:
         delete[] objects;
     }
 
-    bool empty() const {
-        return size() == 0;
-    }
-
-    int size() const {
+    int size() const
+    {
         return theSize;
     }
 
-    T &head() {
-        return objects[0];
+    bool empty() const
+    {
+        return size() == 0;
     }
 
-    T &last() {
-        return objects[0];
-    }
+    void clear();
 
-    void pop() {
-        if (theSize > 0)
-            theSize -= 1;
-        else
-            theSize = 0;
-    }
+    const T & back();
 
-    void push(const T &theElement);
+    void pop_back();
+
+    void push_back(const T & ele);
+
+    const T & front();
+
+    T & operator[] (int idx);
+
+    T & at(int idx);
+
+    void reserve(int newCapacity);
+
+    iterator insert(iterator pos, const T & ele);
+
+    iterator erase(iterator pos);
+
+    iterator erase(iterator start, iterator end);
+
+    iterator begin();
+
+    const_iterator begin() const;
+
+    iterator end();
+
+    const_iterator end() const;
+
+    int capacity() const;
 
     static const int SPARE_CAPACITY = 16;
 
@@ -74,7 +91,7 @@ Vector<T>::Vector(const Vector &&rhs):theSize{rhs.theSize}, theCapacity{rhs.theC
 }
 
 template<class T>
-void Vector<T>::push(const T &theElement) {
+void Vector<T>::clear() {
 
 }
 

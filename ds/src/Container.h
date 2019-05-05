@@ -14,13 +14,7 @@ public:
 
     virtual int size() const = 0;
 
-    virtual T &head() = 0;
-
-    virtual T &last() = 0;
-
-    virtual void pop() = 0;
-
-    virtual void push(const T &theElement) = 0;
+    virtual void clear();
 };
 
 

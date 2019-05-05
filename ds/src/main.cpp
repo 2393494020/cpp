@@ -1,6 +1,8 @@
 #include <iostream>
+#include <vector>
+#include <list>
 
-#include "Vector.h"
+// #include "Vector.h"
 
 using namespace std;
 
@@ -11,8 +13,47 @@ int fact(int num) {
     return num * fact(num - 1);
 }
 
-int main() {
-    std::cout << fact(10) << std::endl;
-    return 0;
+template <typename Container>
+void removeEveryOtherItem( Container & lst ) {
+    auto itr = lst.begin();
+
+    while( itr != lst.end() ) {     
+        itr = lst.erase( itr );
+        if ( itr != lst.end() )
+            ++itr;
+    }
 }
 
+template <typename Container, typename T>
+void change(Container & lst, const T & item) {
+    typename Container::iterator itr = lst.begin();
+
+    while( itr != lst.end() ) {     
+        *itr++ = item;
+    }
+}
+
+template <typename Container>
+auto begin(Container & lst) -> decltype( lst.begin() )
+{
+    return lst.begin();
+}
+
+template <typename Container>
+auto begin(const Container & lst) -> decltype( lst.begin() )
+{
+    return lst.begin();
+}
+
+int main()
+{
+    // cout << fact(5) << endl;
+
+    std::list<int> lst = {5, 4, 6, 2, 1, 9, 13, 18};
+    change(lst, 99);
+
+    for( auto itr = lst.begin(); itr != lst.end(); ++itr ) {
+        cout << *itr << endl;
+    }
+    return 0;
+}
