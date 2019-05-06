@@ -5,6 +5,8 @@
 #ifndef DS_VECTOR_H
 #define DS_VECTOR_H
 
+#include <algorithm>
+
 #include "Container.h"
 
 template<typename T>
@@ -12,13 +14,17 @@ class Vector : public Container<T> {
 public:
     explicit Vector(int initSize = 0);
 
-    Vector(const Vector &rhs);
+    Vector( const Vector & rhs );
 
-    Vector(const Vector &&rhs);
+    Vector( Vector && rhs );
 
     ~Vector() {
-        delete[] objects;
+        delete [] objects;
     }
+
+    Vector & operator= ( const Vector & rhs );
+
+    Vector & operator= ( Vector && rhs );
 
     int size() const
     {
@@ -32,19 +38,68 @@ public:
 
     void clear();
 
-    const T & back();
+    const T & back() const {
+        return objects[ theSize - 1];
+    }
 
-    void pop_back();
+    void pop_back()
+    {
+        --theSize;
+    }
 
-    void push_back(const T & ele);
+    void push_back( const T & ele )
+    {
+        if ( theSize == theCapacity  )
+            reserve( 2 * theCapacity + 1 );
 
-    const T & front();
+        objects[ theSize++ ] = ele;
+    }
 
-    T & operator[] (int idx);
+    void push_bach( T && ele )
+    {
+        if ( theSize == theCapacity  )
+            reserve( 2 * theCapacity + 1 );
 
-    T & at(int idx);
+        objects[ theSize++ ] = std::move( ele );
+    }
+
+
+    T & operator[]( int index )
+    {
+        return objects[ index ];
+    }
+
+    const T & operator[]( int index ) const
+    {
+        return objects[ index ];
+    }
 
     void reserve(int newCapacity);
+
+    void resize(int newSize);
+
+    typedef T * iterator;
+    typedef const T * const_iterator;
+
+    iterator begin()
+    {
+        return &objects[ 0 ];
+    }
+
+    const_iterator begin() const
+    {
+        return &objects[ 0 ];
+    }
+
+    iterator end()
+    {
+        return &objects[ size() ];
+    }
+
+    const_iterator end() const
+    {
+        return &objects[ size() ];
+    }
 
     iterator insert(iterator pos, const T & ele);
 
@@ -52,47 +107,100 @@ public:
 
     iterator erase(iterator start, iterator end);
 
-    iterator begin();
-
-    const_iterator begin() const;
-
-    iterator end();
-
-    const_iterator end() const;
-
-    int capacity() const;
+    int capacity() const
+    {
+        return theCapacity;
+    }
 
     static const int SPARE_CAPACITY = 16;
 
 private:
     int theSize;
     int theCapacity;
-    T *objects;
+    T * objects;
 };
 
 template<class T>
-Vector<T>::Vector(int initSize) :theSize{initSize}, theCapacity{initSize + SPARE_CAPACITY} {
-    objects = new T[theCapacity];
+Vector<T>::Vector(int initSize) : theSize{ initSize }, theCapacity{ initSize + SPARE_CAPACITY }
+{
+    objects = new T[ theCapacity ];
 }
 
+/**
+ * copy constructor
+ **/
 template<class T>
-Vector<T>::Vector(const Vector &rhs):theSize{rhs.theSize}, theCapacity{rhs.theCapacity}, objects{nullptr} {
-    objects = new T[theCapacity];
-    for (int i = 0; i < theSize; ++i) {
+Vector<T>::Vector( const Vector & rhs ) : theSize{ rhs.theSize }, theCapacity{ rhs.theCapacity }, objects{ nullptr }
+{
+    objects = new T[ theCapacity ];
+    for ( int i = 0; i < theSize; ++i )
+    {
         objects[i] = rhs.objects[i];
     }
 }
 
+/**
+ * move constructor
+ **/
 template<class T>
-Vector<T>::Vector(const Vector &&rhs):theSize{rhs.theSize}, theCapacity{rhs.theCapacity}, objects{rhs.objects} {
+Vector<T>::Vector( Vector && rhs ) : theSize{ rhs.theSize }, theCapacity{ rhs.theCapacity }, objects{ rhs.objects }
+{
     rhs.theSize = 0;
     rhs.theCapacity = 0;
     rhs.objects = nullptr;
 }
 
+/**
+ * copy assignment operator=
+ **/
 template<class T>
-void Vector<T>::clear() {
+Vector<T> & Vector<T>::operator= ( const Vector & rhs )
+{
+    Vector copy = rhs;
+    std::swap( *this, copy );
+    return *this;
+}
 
+/**
+ * move assignment operator=
+ **/
+Vector<T> & Vector<T>::operator= ( Vector && rhs )
+{
+    std::swap( theSize, rhs.theSize );
+    std::swap( theCapacity, rhs.theCapacity );
+    std::swap( objects, rhs.objects );
+
+    return *this;
+}
+
+template<class T>
+void Vector<T>::resize( int newSize )
+{
+    if ( newSize > theCapacity )
+        reserve( newSize * 2 );
+    
+    theSize = newSize;
+}
+
+/**
+ * The capacity is changed by obtaining a new block of memory for the primitive array,
+ * copying the old block into the new block, and reclaiming the old block.
+ **/
+template<class T>
+void Vector<T>::reserve( int newCapacity )
+{
+    if ( newCapacity < theSize )
+        return;
+    
+    T *newArray = new T[ newCapacity ];
+    for( int i = 0; i < theSize; i++ )
+    {
+        newArray[ i ] = std::move( objects[ i ] );
+    }
+    
+    theCapacity = newCapacity;
+    std::swap( objects, newArray );
+    delete [] newArray;
 }
 
 #endif //DS_VECTOR_H

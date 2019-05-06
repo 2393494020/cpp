@@ -2,7 +2,7 @@
 #include <vector>
 #include <list>
 
-// #include "Vector.h"
+#include "Vector.h"
 
 using namespace std;
 
@@ -25,7 +25,8 @@ void removeEveryOtherItem( Container & lst ) {
 }
 
 template <typename Container, typename T>
-void change(Container & lst, const T & item) {
+void change( Container & lst, const T & item ) 
+{
     typename Container::iterator itr = lst.begin();
 
     while( itr != lst.end() ) {     
@@ -34,13 +35,13 @@ void change(Container & lst, const T & item) {
 }
 
 template <typename Container>
-auto begin(Container & lst) -> decltype( lst.begin() )
+auto begin( Container & lst ) -> decltype( lst.begin() )
 {
     return lst.begin();
 }
 
 template <typename Container>
-auto begin(const Container & lst) -> decltype( lst.begin() )
+auto begin( const Container & lst ) -> decltype( lst.begin() )
 {
     return lst.begin();
 }
@@ -49,10 +50,10 @@ int main()
 {
     // cout << fact(5) << endl;
 
-    std::list<int> lst = {5, 4, 6, 2, 1, 9, 13, 18};
-    change(lst, 99);
+    Vector<int> lst = {5, 4, 6, 2, 1, 9, 13, 18};
+    change(lst, 19);
 
-    for( auto itr = lst.begin(); itr != lst.end(); ++itr ) {
+    for( auto itr = begin(lst); itr != end(lst); ++itr ) {
         cout << *itr << endl;
     }
     return 0;
