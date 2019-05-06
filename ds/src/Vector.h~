@@ -36,10 +36,7 @@ public:
         return size() == 0;
     }
 
-    void clear()
-    {
-    
-    }
+    void clear();
 
     const T & back() const {
         return objects[ theSize - 1];
@@ -209,4 +206,9 @@ void Vector<T>::reserve( int newCapacity )
     delete [] newArray;
 }
 
+template<class T>
+void Vector<T>::clear()
+{
+    ;
+}
 #endif //DS_VECTOR_H

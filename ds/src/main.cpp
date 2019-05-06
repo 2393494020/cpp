@@ -50,10 +50,14 @@ int main()
 {
     // cout << fact(5) << endl;
 
-    Vector<int> lst = {5, 4, 6, 2, 1, 9, 13, 18};
-    change(lst, 19);
+    Vector<int> lst;
+    lst.push_back(11);
+    lst.push_back(2);
+    lst.push_back(3);
 
-    for( auto itr = begin(lst); itr != end(lst); ++itr ) {
+    // change(lst, 19);
+
+    for( auto itr = lst.begin(); itr != lst.end(); ++itr ) {
         cout << *itr << endl;
     }
     return 0;
