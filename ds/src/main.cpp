@@ -2,6 +2,7 @@
 #include <vector>
 #include <list>
 
+// #include "Container.h"
 #include "Vector.h"
 
 using namespace std;
@@ -35,7 +36,7 @@ void change( Container & lst, const T & item )
 }
 
 template <typename Container>
-auto begin( Container & lst ) -> decltype( lst.begin() )
+auto begin( Container && lst ) -> decltype( lst.begin() )
 {
     return lst.begin();
 }
@@ -50,14 +51,14 @@ int main()
 {
     // cout << fact(5) << endl;
 
-    Vector<int> lst;
+    Vector<int> lst(0);
     lst.push_back(11);
-    lst.push_back(2);
-    lst.push_back(3);
+    // lst.push_back(2);
+    // lst.push_back(3);
 
     // change(lst, 19);
 
-    for( auto itr = lst.begin(); itr != lst.end(); ++itr ) {
+    for( auto itr = begin(lst); itr != lst.end(); ++itr ) {
         cout << *itr << endl;
     }
     return 0;

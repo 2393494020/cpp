@@ -14,7 +14,7 @@ public:
 
     virtual int size() const = 0;
 
-    // virtual void clear() const = 0;
+    virtual void clear() = 0;
 };
 
 
