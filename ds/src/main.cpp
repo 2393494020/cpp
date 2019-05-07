@@ -2,8 +2,8 @@
 #include <vector>
 #include <list>
 
-// #include "Container.h"
 #include "Vector.h"
+#include "List.h"
 
 using namespace std;
 
@@ -51,15 +51,23 @@ int main()
 {
     // cout << fact(5) << endl;
 
-    Vector<int> lst(0);
-    lst.push_back(11);
-    // lst.push_back(2);
-    // lst.push_back(3);
+    Vector<int> varray;
+    varray.push_back(11);
+    varray.push_back(112);
+    varray.push_back(31);
 
-    // change(lst, 19);
+    Vector<int> varray_copy( varray );
 
-    for( auto itr = begin(lst); itr != lst.end(); ++itr ) {
+    // change(varray, 19);
+
+    for( auto itr = begin(varray_copy); itr != varray_copy.end(); ++itr ) {
         cout << *itr << endl;
     }
+
+    cout << "Vector size:" << varray_copy.size() << endl;
+
+
+    List<int> lst;
+    cout << "List size:" << lst.size() << endl;
     return 0;
 }

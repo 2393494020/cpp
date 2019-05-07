@@ -1,5 +1,6 @@
 //
 // Created by juno on 19-3-28.
+// 双向链表
 //
 
 #ifndef DS_LIST_H
@@ -9,13 +10,69 @@
 
 template<class T>
 class List : public Container<T> {
-public:
-    explicit List<T>(int initSize = 0);
+private:
+    struct Node
+    {
+        T data;
+        Node *prev;
+        Node *next;
 
-    ~List<T>() {
+        Node(const T & newData = T {}, Node * p = nullptr, Node * n = nullptr) : data { newData }, prev { p }, next { n }
+        {
+
+        }
+
+        Node(T && newData)
+        {
+
+        }
+    };
+
+
+public:
+    class const_iterator
+    {
+
+    };
+
+    class iterator : public const_iterator
+    {
+
+    };
+
+    explicit List<T>(int initSize = 0) : theSize { initSize }
+    {
+
     }
 
-    void push_back(const T & ele);
+    List( const List<T> & rhs );
+
+    List<T> & operator= ( const List<T> & rhs );
+
+    List( List<T> && rhs );
+
+    List<T> & operator= ( List<T> && rhs );
+
+    ~List<T>()
+    {
+
+    }
+
+    void clear() {
+
+    }
+
+    int size() const
+    {
+        return theSize;
+    }
+
+    bool empty() const
+    {
+        return size() == 0;
+    }
+
+    void push_back( const T & ele );
 
     void pop_back();
 
@@ -30,21 +87,61 @@ public:
     T & operator[] (int idx);
 
     T & at(int idx);
-
-    int capacity() const;
-
-    void reserve(int newCapacity);
-
+    
     iterator insert(iterator pos, const T & ele);
 
     iterator erase(iterator pos);
 
+    iterator erase(iterator start, iterator end);
+
 private:
     int theSize;
+    Node *head;
+    Node *tail;
+
+    void init()
+    {
+        theSize = 0;
+        head = new Node;
+        tail = new Node;
+
+        head->next = tail;
+        tail->prev = tail;
+    }
+
 };
 
+
+// copy constructor
 template<class T>
-void List<T>::push_back(const T & ele) {
+List<T>::List( const List<T> & rhs )
+{
+    
+}
+
+// copy assignment
+template<class T>
+List<T> & List<T>::operator= ( const List<T> & rhs )
+{
+
+}
+
+// move constructor
+template<class T>
+List<T>::List( List<T> && rhs )
+{
+
+}
+
+// copy assignment
+template<class T>
+List<T> & List<T>::operator= ( List<T> && rhs )
+{
+
+}
+
+template<class T>
+void List<T>::push_back( const T & ele ) {
 
 }
 

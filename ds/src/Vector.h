@@ -14,17 +14,17 @@ class Vector : public Container<T> {
 public:
     explicit Vector(int initSize = 0);
 
-    Vector( const Vector & rhs );
+    Vector( const Vector<T> & rhs );
 
-    Vector( Vector && rhs );
+    Vector( Vector<T> && rhs );
 
     ~Vector() {
         delete [] objects;
     }
 
-    Vector & operator= ( const Vector & rhs );
+    Vector<T> & operator= ( const Vector<T> & rhs );
 
-    Vector & operator= ( Vector && rhs );
+    Vector<T> & operator= ( Vector<T> && rhs );
 
     int size() const
     {
@@ -132,21 +132,25 @@ Vector<T>::Vector(int initSize) : theSize{ initSize }, theCapacity{ initSize + S
  * copy constructor
  **/
 template<class T>
-Vector<T>::Vector( const Vector & rhs ) : theSize{ rhs.theSize }, theCapacity{ rhs.theCapacity }, objects{ nullptr }
+Vector<T>::Vector( const Vector<T> & rhs ) : theSize{ rhs.theSize }, theCapacity{ rhs.theCapacity }, objects{ nullptr }
 {
+    std::cout << "copy constructor" << std::endl;
     objects = new T[ theCapacity ];
-    for ( int i = 0; i < theSize; ++i )
-    {
-        objects[i] = rhs.objects[i];
-    }
+    // for ( int i = 0; i < theSize; ++i )
+    // {
+    //     objects[i] = rhs.objects[i];
+    // }
+    std::copy( rhs.objects, rhs.objects + theSize, objects );
 }
 
 /**
  * move constructor
  **/
 template<class T>
-Vector<T>::Vector( Vector && rhs ) : theSize{ rhs.theSize }, theCapacity{ rhs.theCapacity }, objects{ rhs.objects }
+Vector<T>::Vector( Vector<T> && rhs ) : theSize{ rhs.theSize }, theCapacity{ rhs.theCapacity }, objects{ rhs.objects }
 {
+    // Assign the data members of the source object to default values.
+    // This prevents the destructor from freeing resources (such as memory) multiple times:
     rhs.theSize = 0;
     rhs.theCapacity = 0;
     rhs.objects = nullptr;
@@ -156,7 +160,7 @@ Vector<T>::Vector( Vector && rhs ) : theSize{ rhs.theSize }, theCapacity{ rhs.th
  * copy assignment operator=
  **/
 template<class T>
-Vector<T> & Vector<T>::operator= ( const Vector & rhs )
+Vector<T> & Vector<T>::operator= ( const Vector<T> & rhs )
 {
     Vector copy = rhs;
     std::swap( *this, copy );
@@ -167,7 +171,7 @@ Vector<T> & Vector<T>::operator= ( const Vector & rhs )
  * move assignment operator=
  **/
 template<class T>
-Vector<T> & Vector<T>::operator= ( Vector && rhs )
+Vector<T> & Vector<T>::operator= ( Vector<T> && rhs )
 {
     std::swap( theSize, rhs.theSize );
     std::swap( theCapacity, rhs.theCapacity );
