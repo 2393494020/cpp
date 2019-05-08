@@ -200,7 +200,7 @@ void Vector<T>::reserve( int newCapacity )
         return;
     
     T *newArray = new T[ newCapacity ];
-    for( int i = 0; i < theSize; i++ )
+    for ( int i = 0; i < theSize; i++ )
     {
         newArray[ i ] = std::move( objects[ i ] );
     }

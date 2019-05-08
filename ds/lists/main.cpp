@@ -60,7 +60,7 @@ int main()
 
     // change(varray, 19);
 
-    for( auto itr = begin(varray_copy); itr != varray_copy.end(); ++itr ) {
+    for ( auto itr = begin(varray_copy); itr != varray_copy.end(); ++itr ) {
         cout << *itr << endl;
     }
 
@@ -68,6 +68,19 @@ int main()
 
 
     List<int> lst;
+    lst.push_back( 59 );
+    lst.push_back( 87 );
+    lst.push_back( 34 );
+    lst.push_back( 108 );
+
+    lst.insert(0, 1);
+    lst.insert(2, 16);
+    lst.insert(6, 51);
+
     cout << "List size:" << lst.size() << endl;
+    cout << "List data at 0 is " << lst[ 0 ] << endl;
+    cout << "List data at 2 is " << lst[ 2 ] << endl;
+
+    lst.print();
     return 0;
 }
