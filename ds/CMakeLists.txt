@@ -3,6 +3,6 @@ project(ds)
 
 set(CMAKE_CXX_STANDARD 14)
 
-aux_source_directory(./queues DIR_SRC)
+aux_source_directory(./lists DIR_SRC)
 
 add_executable(ds ${DIR_SRC})
