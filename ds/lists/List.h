@@ -3,8 +3,8 @@
 // 双向链表
 //
 
-#ifndef DS_LIST_H
-#define DS_LIST_H
+#ifndef DS_LISTS_LIST_H
+#define DS_LISTS_LIST_H
 
 #include "Container.h"
 
@@ -50,6 +50,19 @@ public:
                 return old;
             }
 
+            const_iterator & operator-- ()
+            {
+                current = current->prev;
+                return *this;
+            }
+
+            const_iterator operator-- ( int )
+            {
+                const_iterator old = *this;
+                --( *this );
+                return old;
+            }
+
             bool operator== ( const const_iterator & rhs ) const
             {
                 return current == rhs.current;
@@ -68,7 +81,7 @@ public:
                 return current->data;
             }
 
-            const_iterator(Node * p) : current { p }
+            const_iterator( Node * p ) : current { p }
             {}
 
             friend class List<T>;
@@ -85,17 +98,21 @@ public:
                 return const_iterator::retrieve();
             }
 
-            const T & operator*() const
+            const T & operator* () const
             {
                 return const_iterator::operator*();
             }
 
+            // prefix
+            // ++itr
             iterator & operator++ ()
             {
                 this->current = this->current->next;
                 return *this;
             }
 
+            // postfix
+            // itr++
             iterator operator++ ( int )
             {
                 iterator old = *this;
@@ -103,10 +120,24 @@ public:
                 return old;
             }
 
+            iterator & operator-- ()
+            {
+                this->current = this->current->prev;
+                return *this;
+            }
+
+            iterator operator-- ( int )
+            {
+                iterator old = *this;
+                --( *this );
+                return old;
+            }
+
         protected:
             iterator( Node *p ) : const_iterator{ p }
             {}
 
+            // It grants to the List<T> class access to const_iterator's nonpublic members.
             friend class List<T>;
     };
 
@@ -131,9 +162,32 @@ public:
         delete tail;
     }
 
+    iterator begin()
+    {
+        return { head->next };
+    }
+
+    const_iterator begin() const
+    {
+        return { head->next };
+    }
+
+    iterator end()
+    {
+        return { tail };
+    }
+
+    const_iterator end() const
+    {
+        return { tail };
+    }
+
     void clear()
     {
-        
+        while ( !empty() )
+        {
+            pop_front();
+        }        
     }
 
     int size() const
@@ -146,88 +200,92 @@ public:
         return size() == 0;
     }
 
-    void push_back( const T & ele )
+    void push_back( const T & x )
     {
-        Node *current = new Node(ele, tail->prev, tail);
-        
-        tail->prev->next = current;
-        tail->prev = current;
-
-        ++theSize;
+        insert( end(), x );
     }
 
-    void push_back( const T && ele )
+    void push_back( const T && x )
     {
-        Node *current = new Node(ele, tail->prev, tail);
-        
-        tail->prev->next = current;
-        tail->prev = current;
-
-        ++theSize;
+        insert( end(), std::move( x ) );
     }
 
-    void pop_back();
-
-    const T & back();
-
-    const T & front();
-
-    void push_front(const T & ele);
-
-    void pop_front();
-
-    const T & operator[]( int index ) const
+    void pop_back()
     {
-        Node *p = head;
-        for (int i = 0; i <= index; ++i)
-        {
-            p = p->next;
-        }
-
-        return p->data;
-        
+        erase( --( end() ) );
     }
 
-    T & operator[]( int index )
+    const T & back()
     {
-        Node *p = head;
-        for (int i = 0; i <= index; ++i)
-        {
-            p = p->next;
-        }
+        *( --( end() ) );
+    }
 
-        return p->data;
-        
+    const T & front()
+    {
+        *( begin() );
+    }
+
+    void push_front(const T & x)
+    {
+        insert( begin(), x );
+    }
+
+    void push_front(const T && x)
+    {
+        insert( begin(), std::move( x ) );
+    }
+
+    void pop_front()
+    {
+        erase( begin() );
     }
 
     void print() const
     {
-        Node *p = head;
-        for ( int i = 0; i < theSize; ++i )
+        for ( auto itr = begin(); itr != end(); ++itr )
         {
-            p = p->next;
-            std::cout << p->data << std::endl;
-        }        
+            std::cout << *itr << std::endl;
+        }
     }
     
-    void insert( int pos, const T & ele )
+    iterator insert( iterator itr, const T & x )
     {
-        Node *p = head;
-        for ( int i = 0; i <= pos; ++i )
-        {
-            p = p->next;
-        }
-
-        Node *newNode = new Node{ ele, p->prev, p };
+        Node *p = itr.current;
+        Node *newNode = new Node{ x, p->prev, p };
         p->prev->next = newNode;
         p->prev = newNode;
-
         ++theSize;
+
+        return { newNode };
     }
 
-    iterator erase(iterator pos);
+    iterator insert( iterator itr, const T && x )
+    {
+        Node *p = itr.current;
+        Node *newNode = new Node{ std::move( x ), p->prev, p };
+        p->prev->next = newNode;
+        p->prev = newNode;
+        ++theSize;
 
-    iterator erase(iterator start, iterator end);
+        return { newNode };
+    }
+
+    iterator erase( iterator pos )
+    {
+        
+        Node *p = pos.current;
+        p->prev->next = p->next;
+        p->next->prev = p->prev;
+
+        iterator itr = { p->next };
+
+        delete p;
+        --theSize;
+
+        return itr;
+    }
+
+    iterator erase( iterator start, iterator end );
 
 private:
     // Keep track of the size in a data member so that the size method can be implemented in constant time.

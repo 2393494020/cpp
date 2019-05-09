@@ -50,7 +50,7 @@ auto begin( const Container & lst ) -> decltype( lst.begin() )
 int main()
 {
     // cout << fact(5) << endl;
-
+    /*
     Vector<int> varray;
     varray.push_back(11);
     varray.push_back(112);
@@ -65,7 +65,7 @@ int main()
     }
 
     cout << "Vector size:" << varray_copy.size() << endl;
-
+    */
 
     List<int> lst;
     lst.push_back( 59 );
@@ -73,14 +73,16 @@ int main()
     lst.push_back( 34 );
     lst.push_back( 108 );
 
-    lst.insert(0, 1);
-    lst.insert(2, 16);
-    lst.insert(6, 51);
+    lst.pop_front();
+    lst.push_front( 101 );
+    lst.pop_back();
 
     cout << "List size:" << lst.size() << endl;
-    cout << "List data at 0 is " << lst[ 0 ] << endl;
-    cout << "List data at 2 is " << lst[ 2 ] << endl;
 
     lst.print();
+    
+    cout << "lst front:" << lst.front() << endl;
+    cout << "lst back:" << lst.back() << endl;
+
     return 0;
 }
