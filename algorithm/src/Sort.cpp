@@ -12,17 +12,18 @@ void bubbleSort(int list[], int);
 
 int main() 
 {
-    int size = 100;
-    int list[size];
-    for (int i = 0; i < size; ++i) {
-        list[i] = i + 1;
-    }
+    int size = 3;
+    // int list[size] = {4, 7, 2, 6, 4, 5, 1};
+    int list[size] = {1, 4, 2};
+    // for (int i = 0; i < size; ++i) {
+    //     list[i] = i + 1;
+    // }
 
-    for (int i = 1; i < size; ++i)
-    {
-        int j = rand() % i;
-        swap(list[i], list[j]);
-    }
+    // for (int i = 1; i < size; ++i)
+    // {
+    //     int j = rand() % i;
+    //     swap(list[i], list[j]);
+    // }
 
     quickSort(list, 0, size - 1);
     // bubbleSort(list, size);
@@ -43,6 +44,7 @@ int main()
 
 void quickSort(int list[], int l, int h)
 {
+    cout << "l,h:" << l << h << endl;
     if (l < h)
     {
         int x = list[l];
@@ -51,9 +53,9 @@ void quickSort(int list[], int l, int h)
 
         while (i < j)
         {
-            while (j > i && list[j] > x)
+            while (i < j && list[j] > x)
             {
-                --j;            
+                --j;
             }
             if (i < j)
                 list[i++] = list[j];
@@ -67,6 +69,13 @@ void quickSort(int list[], int l, int h)
         }
 
         list[i] = x;
+
+
+
+        for (int k = 0; k <= h; ++k)
+            cout << list[k] << ",";
+        cout << endl;
+        cout << i << endl;
 
         quickSort(list, l, i - 1);
         quickSort(&list[i + 1], i + 1, h);
