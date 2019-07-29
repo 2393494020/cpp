@@ -10,28 +10,35 @@ using namespace std;
 void quickSort(int list[], int, int);
 void bubbleSort(int list[], int);
 
-int main() 
+int main(int argc, char* argv[]) 
 {
-    int size = 3;
-    // int list[size] = {4, 7, 2, 6, 4, 5, 1};
-    int list[size] = {1, 4, 2};
-    // for (int i = 0; i < size; ++i) {
-    //     list[i] = i + 1;
-    // }
+    char * input = argv[1];
+    int size = atoi(input);
+    int list[size];
+    for (int i = 0; i < size; ++i) {
+        list[i] = i + 1;
+    }
 
-    // for (int i = 1; i < size; ++i)
-    // {
-    //     int j = rand() % i;
-    //     swap(list[i], list[j]);
-    // }
+    for (int i = 1; i < size; ++i)
+    {
+        int j = rand() % i;
+        swap(list[i], list[j]);
+    }
+
+    int head = list[0];
 
     quickSort(list, 0, size - 1);
     // bubbleSort(list, size);
 
     int *last = &list[size];
-    for (int *p = list; p < last; ++p) {
+    for (int *p = list; p < last; ++p) 
+    {
         cout << *p << endl;
     }
+
+    cout << endl << "head:" << head << endl;
+    cout << "argc:" << argc << endl;
+    cout << "size:" << size << endl;
 
     // cout << sizeof(list) << endl;
     // cout << sizeof(list[0]) << endl;
@@ -44,10 +51,9 @@ int main()
 
 void quickSort(int list[], int l, int h)
 {
-    cout << "l,h:" << l << "," << h << endl;
     if (l < h)
     {
-        int x = list[0];
+        int x = list[l];
         int i = l;
         int j = h;
 
@@ -70,23 +76,19 @@ void quickSort(int list[], int l, int h)
 
         list[i] = x;
 
-
-
-        for (int k = 0; k <= h - l; ++k)
-            cout << list[k] << ",";
-        cout << endl;
-        cout << "i:" << i << endl;
-
         quickSort(list, l, i - 1);
-        quickSort(&list[i + 1], i + 1, h);
+        quickSort(list, i + 1, h);
     }
 }
 
 void bubbleSort(int list[], int size)
 {
-    for (int j = size - 1; j > 0; --j) {
-        for (int i = 0; i < j; ++i) {
-            if (list[i] < list[i + 1]) {
+    for (int j = size - 1; j > 0; --j) 
+    {
+        for (int i = 0; i < j; ++i) 
+        {
+            if (list[i] < list[i + 1]) 
+            {
                 int temp = list[i + 1];
                 list[i + 1] = list[i];
                 list[i] = temp;
