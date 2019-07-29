@@ -44,10 +44,10 @@ int main()
 
 void quickSort(int list[], int l, int h)
 {
-    cout << "l,h:" << l << h << endl;
+    cout << "l,h:" << l << "," << h << endl;
     if (l < h)
     {
-        int x = list[l];
+        int x = list[0];
         int i = l;
         int j = h;
 
@@ -72,10 +72,10 @@ void quickSort(int list[], int l, int h)
 
 
 
-        for (int k = 0; k <= h; ++k)
+        for (int k = 0; k <= h - l; ++k)
             cout << list[k] << ",";
         cout << endl;
-        cout << i << endl;
+        cout << "i:" << i << endl;
 
         quickSort(list, l, i - 1);
         quickSort(&list[i + 1], i + 1, h);
