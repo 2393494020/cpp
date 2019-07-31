@@ -112,7 +112,7 @@ void BinarySearchTree<Comparable>::insert(Comparable &&x)
     else
     {
         BinaryNode *existNode = this->root;
-        // root
+        // only root
         if (existNode->left == nullptr && existNode->right == nullptr)
         {
             if (existNode->item > x)
@@ -127,29 +127,40 @@ void BinarySearchTree<Comparable>::insert(Comparable &&x)
         else
         {
             bool insertFlag = false;
-            while (existNode->left != nullptr && existNode->item > x)
+            while (!insertFlag && existNode->left != nullptr && existNode->item > x)
             {
                 BinaryNode *subNode = existNode->left;
-                if (subNode->item > x)
+                if (subNode->left == nullptr && subNode->right == nullptr)
                 {
-                    if (subNode->left != nullptr && subNode->left->item > x)
-                    {
-                        existNode = subNode;
-                    }
-                    else if (subNode->left == nullptr && subNode->right == nullptr)
+                    if (subNode->item > x)
                     {
                         subNode->left = currentNode;
-                        insertFlag = true;
-                        break;
                     }
+                    else
+                    {
+                        subNode->right = currentNode;
+                    }
+                    insertFlag = true;
                 }
-                else
-                {
-                    /* code */
-                }
-                
+                existNode = subNode;
             }
-
+            while (!insertFlag && existNode->right != nullptr && existNode->item < x)
+            {
+                BinaryNode *subNode = existNode->right;
+                if (subNode->left == nullptr && subNode->right == nullptr)
+                {
+                    if (subNode->item > x)
+                    {
+                        subNode->left = currentNode;
+                    }
+                    else
+                    {
+                        subNode->right = currentNode;
+                    }
+                    insertFlag = true;
+                }
+                existNode = subNode;
+            }
             cout << "insert:" << insertFlag << endl;
         }
     }
@@ -189,4 +200,5 @@ void BinarySearchTree<Comparable>::postOrderPrintTree(ostream &out) const
 {
     out << "postOrder print binary search tree" << endl;
 }
+
 #endif

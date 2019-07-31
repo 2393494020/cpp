@@ -10,7 +10,10 @@ int main()
     
     tree.insert(11);
     tree.insert(5);
+    tree.insert(9);
     tree.insert(6);
+    tree.insert(7);
+    tree.insert(2);
 
     cout << tree.contains(87) << endl;
 
