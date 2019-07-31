@@ -104,7 +104,7 @@ bool BinarySearchTree<Comparable>::isEmpty() const
 template <typename Comparable>
 void BinarySearchTree<Comparable>::insert(Comparable &&x)
 {
-    BinaryNode *currentNode = new BinaryNode(x, nullptr, nullptr);
+    BinaryNode *currentNode = new BinaryNode{x, nullptr, nullptr};
     if (this->isEmpty())
     {
         this->root = currentNode;
