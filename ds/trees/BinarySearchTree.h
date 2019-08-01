@@ -178,9 +178,11 @@ bool BinarySearchTree<Comparable>::contains(Comparable &&x) const
 
     if (targetNode != nullptr && targetNode->item == x)
     {
+        cout << "find:[" << x << "]" << endl;
         return true;
     }
     
+    cout << "can not find:[" << x << "]" << endl;
     return false;
 }
 
@@ -189,9 +191,9 @@ void BinarySearchTree<Comparable>::preOrderPrintTree(ostream &out) const
 {
     out << "preOrder print binary search tree" << endl;
     BinaryNode *targetNode = this->root;
-    while (targetNode != nullptr)
-    {
-    }
+    // while (targetNode != nullptr)
+    // {
+    // }
     
 }
 
