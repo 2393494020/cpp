@@ -108,61 +108,52 @@ void BinarySearchTree<Comparable>::insert(Comparable &&x)
     if (this->isEmpty())
     {
         this->root = currentNode;
+        cout << "root:[" << x << "]" << endl;
     }
     else
     {
-        BinaryNode *existNode = this->root;
-        // only root
-        if (existNode->left == nullptr && existNode->right == nullptr)
+        BinaryNode *parentNode = this->root;
+        BinaryNode *subParentNode = this->root;
+        while (subParentNode != nullptr)
         {
-            if (existNode->item > x)
+            parentNode = subParentNode;
+            if (subParentNode->item > x)
             {
-                existNode->left = currentNode;
+                subParentNode = subParentNode->left;
+            }
+            else if (subParentNode->item < x)
+            {
+                subParentNode = subParentNode->right;
             }
             else
             {
-                existNode->right = currentNode;
+                break;
             }
+        }
+
+        bool insertFlag = true;
+        if (parentNode->item > x)
+        {
+            parentNode->left = currentNode;
+        }
+        else if (parentNode->item < x)
+        {
+            parentNode->right = currentNode;
         }
         else
         {
-            bool insertFlag = false;
-            while (!insertFlag && existNode->left != nullptr && existNode->item > x)
-            {
-                BinaryNode *subNode = existNode->left;
-                if (subNode->left == nullptr && subNode->right == nullptr)
-                {
-                    if (subNode->item > x)
-                    {
-                        subNode->left = currentNode;
-                    }
-                    else
-                    {
-                        subNode->right = currentNode;
-                    }
-                    insertFlag = true;
-                }
-                existNode = subNode;
-            }
-            while (!insertFlag && existNode->right != nullptr && existNode->item < x)
-            {
-                BinaryNode *subNode = existNode->right;
-                if (subNode->left == nullptr && subNode->right == nullptr)
-                {
-                    if (subNode->item > x)
-                    {
-                        subNode->left = currentNode;
-                    }
-                    else
-                    {
-                        subNode->right = currentNode;
-                    }
-                    insertFlag = true;
-                }
-                existNode = subNode;
-            }
-            cout << "insert:" << insertFlag << endl;
+            insertFlag = false;
         }
+        
+        if (insertFlag)
+        {
+            cout << "insert:[" << x << "], parent:[" << (parentNode->item) << "]" << endl;
+        }
+        else
+        {
+            cout << "ignore:[" << x << "]" << endl;
+        }
+        
     }
 }
 
@@ -172,21 +163,36 @@ bool BinarySearchTree<Comparable>::contains(Comparable &&x) const
     if (this->isEmpty())
         return false;
 
-    if (this->root->item == x)
+    BinaryNode *targetNode = this->root;
+    while (targetNode != nullptr && targetNode->item != x)
+    {
+        if (targetNode->item > x)
+        {
+            targetNode = targetNode->left;
+        }
+        else
+        {
+            targetNode = targetNode->right;
+        }
+    }
+
+    if (targetNode != nullptr && targetNode->item == x)
     {
         return true;
     }
-    else
-    {
-        cout << "to do" << endl;
-        return false;
-    }
+    
+    return false;
 }
 
 template <typename Comparable>
 void BinarySearchTree<Comparable>::preOrderPrintTree(ostream &out) const
 {
     out << "preOrder print binary search tree" << endl;
+    BinaryNode *targetNode = this->root;
+    while (targetNode != nullptr)
+    {
+    }
+    
 }
 
 template <typename Comparable>
