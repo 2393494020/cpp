@@ -39,6 +39,8 @@ public:
 
     void remove(const Comparable &x);
 
+    void remove(Comparable &&x);
+
     BinarySearchTree &operator=(const BinarySearchTree &rhs);
 
     BinarySearchTree &operator=(BinarySearchTree &&rhs);
@@ -62,6 +64,41 @@ private:
     };
 
     BinaryNode *root;
+    void preOrderPrintTree(ostream &out, BinaryNode *subTree) const
+    {
+        if (subTree != nullptr)
+            out << subTree->item << "\n";
+
+        if (subTree->left != nullptr)
+            preOrderPrintTree(out, subTree->left);
+
+        if (subTree->right != nullptr)
+            preOrderPrintTree(out, subTree->right);
+    }
+
+    void inOrderPrintTree(ostream &out, BinaryNode *subTree) const
+    {
+        if (subTree->left != nullptr)
+            inOrderPrintTree(out, subTree->left);
+
+        if (subTree != nullptr)
+            out << subTree->item << "\n";
+
+        if (subTree->right != nullptr)
+            inOrderPrintTree(out, subTree->right);
+    }
+
+    void postOrderPrintTree(ostream &out, BinaryNode *subTree) const
+    {
+        if (subTree->left != nullptr)
+            postOrderPrintTree(out, subTree->left);
+
+        if (subTree->right != nullptr)
+            postOrderPrintTree(out, subTree->right);
+
+        if (subTree != nullptr)
+            out << subTree->item << "\n";
+    }
 };
 
 template <typename Comparable>
@@ -99,6 +136,10 @@ template <typename Comparable>
 bool BinarySearchTree<Comparable>::isEmpty() const
 {
     return this->root == nullptr;
+}
+template <typename Comparable>
+void BinarySearchTree<Comparable>::remove(Comparable &&x)
+{
 }
 
 template <typename Comparable>
@@ -144,7 +185,7 @@ void BinarySearchTree<Comparable>::insert(Comparable &&x)
         {
             insertFlag = false;
         }
-        
+
         if (insertFlag)
         {
             cout << "insert:[" << x << "], parent:[" << (parentNode->item) << "]" << endl;
@@ -153,7 +194,6 @@ void BinarySearchTree<Comparable>::insert(Comparable &&x)
         {
             cout << "ignore:[" << x << "]" << endl;
         }
-        
     }
 }
 
@@ -181,7 +221,7 @@ bool BinarySearchTree<Comparable>::contains(Comparable &&x) const
         cout << "find:[" << x << "]" << endl;
         return true;
     }
-    
+
     cout << "can not find:[" << x << "]" << endl;
     return false;
 }
@@ -189,24 +229,22 @@ bool BinarySearchTree<Comparable>::contains(Comparable &&x) const
 template <typename Comparable>
 void BinarySearchTree<Comparable>::preOrderPrintTree(ostream &out) const
 {
-    out << "preOrder print binary search tree" << endl;
-    BinaryNode *targetNode = this->root;
-    // while (targetNode != nullptr)
-    // {
-    // }
-    
+    out << "\npreOrder print binary search tree\n";
+    this->preOrderPrintTree(out, this->root);
 }
 
 template <typename Comparable>
 void BinarySearchTree<Comparable>::inOrderPrintTree(ostream &out) const
 {
-    out << "inOrder print binary search tree" << endl;
+    out << "\ninOrder print binary search tree\n";
+    this->inOrderPrintTree(out, this->root);
 }
 
 template <typename Comparable>
 void BinarySearchTree<Comparable>::postOrderPrintTree(ostream &out) const
 {
-    out << "postOrder print binary search tree" << endl;
+    out << "\npostOrder print binary search tree\n";
+    this->postOrderPrintTree(out, this->root);
 }
 
 #endif
