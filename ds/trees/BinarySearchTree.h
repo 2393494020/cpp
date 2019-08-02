@@ -67,33 +67,35 @@ private:
     void preOrderPrintTree(ostream &out, BinaryNode *subTree) const
     {
         if (subTree != nullptr)
+        {
             out << subTree->item << "\n";
 
-        if (subTree->left != nullptr)
-            preOrderPrintTree(out, subTree->left);
+            if (subTree->left != nullptr)
+                preOrderPrintTree(out, subTree->left);
 
-        if (subTree->right != nullptr)
-            preOrderPrintTree(out, subTree->right);
+            if (subTree->right != nullptr)
+                preOrderPrintTree(out, subTree->right);
+        }
     }
 
     void inOrderPrintTree(ostream &out, BinaryNode *subTree) const
     {
-        if (subTree->left != nullptr)
+        if (subTree != nullptr && subTree->left != nullptr)
             inOrderPrintTree(out, subTree->left);
 
         if (subTree != nullptr)
             out << subTree->item << "\n";
 
-        if (subTree->right != nullptr)
+        if (subTree != nullptr && subTree->right != nullptr)
             inOrderPrintTree(out, subTree->right);
     }
 
     void postOrderPrintTree(ostream &out, BinaryNode *subTree) const
     {
-        if (subTree->left != nullptr)
+        if (subTree != nullptr && subTree->left != nullptr)
             postOrderPrintTree(out, subTree->left);
 
-        if (subTree->right != nullptr)
+        if (subTree != nullptr && subTree->right != nullptr)
             postOrderPrintTree(out, subTree->right);
 
         if (subTree != nullptr)
@@ -195,6 +197,36 @@ void BinarySearchTree<Comparable>::insert(Comparable &&x)
             cout << "ignore:[" << x << "]" << endl;
         }
     }
+}
+
+template <typename Comparable>
+const Comparable BinarySearchTree<Comparable>::findMin() const
+{
+    if (this->isEmpty())
+    {
+        throw "empty";
+    }
+    BinaryNode *treeNode = this->root;
+    while (treeNode->left != nullptr)
+    {
+        treeNode = treeNode->left;
+    }
+    return treeNode->item;
+}
+
+template <typename Comparable>
+const Comparable BinarySearchTree<Comparable>::findMax() const
+{
+    if (this->isEmpty())
+    {
+        throw "empty";
+    }
+    BinaryNode *treeNode = this->root;
+    while (treeNode->right != nullptr)
+    {
+        treeNode = treeNode->right;
+    }
+    return treeNode->item;
 }
 
 template <typename Comparable>
