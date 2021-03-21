@@ -32,6 +32,9 @@ int main(int argc, char *argv[])
         // 如果不等待子进程结束会出现子进程找不到父进程的情况
         // wait(NULL);
     }
+    // fork 出来的子进程与父进程并发(concurrency)执行
+    // 父子进程内存空间相互独立
+    // 父子进程内存结构一模一样
     printf("process %d count:%d\n", getpid(), count);
     return 0;
 }
