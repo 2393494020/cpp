@@ -9,6 +9,6 @@ int main()
 	c1 += c2;
 	std::cout << c1.x_() << "\n";
 	std::cout << c1.y_() << "\n";
-	//system("notepad");
+	system("ll -h");
 	return 0;
 }
