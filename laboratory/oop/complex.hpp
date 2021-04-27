@@ -5,9 +5,9 @@ class complex
 {
 public:
 	complex(int a, int b);
-	complex& operator+=(const complex& f);
-	int x_();
-	int y_();
+	complex& operator += (const complex&);
+	int x_() const;
+	int y_() const;
 private:
 	int x;
 	int y;
