@@ -2,14 +2,15 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
 	int a = 10;
 	int* pa = &a;
 	cout << pa << endl;
 	cout << *pa << endl;
 
-	char str_arr[] = { "hello world" }; // arr ±äÁ¿²»¿ÉÒÔÖØĞÂ¸³Öµ, µ«Àï±ßµÄÄÚÈİ¿ÉÒÔĞŞ¸Ä, Êı×éÃûÊÇÓÒÖµ
-	const char* pstr = "hello world";   // pstr Àï±ßµÄÄÚÈİÊÇ³£Á¿, ²»¿ÉÒÔĞŞ¸Ä£»µ« pstr ¿ÉÒÔÖØĞÂÖ¸ÏòĞÂµÄµØÖ·
+	char str_arr[] = { "hello world" }; // arr å˜é‡ä¸å¯ä»¥é‡æ–°èµ‹å€¼, ä½†é‡Œè¾¹çš„å†…å®¹å¯ä»¥ä¿®æ”¹, æ•°ç»„åæ˜¯å³å€¼
+	const char* pstr = "hello world";   // pstr é‡Œè¾¹çš„å†…å®¹æ˜¯å¸¸é‡, ä¸å¯ä»¥ä¿®æ”¹ï¼›ä½† pstr å¯ä»¥é‡æ–°æŒ‡å‘æ–°çš„åœ°å€
 
 	str_arr[0] = 'H';
 	pstr = "hello cpp";
@@ -23,15 +24,19 @@ int main() {
 
 	pstr = NULL;
 
-	// Êı×éÖ¸ÕëÓë¶şÎ¬Êı×é
+	// æ•°ç»„æŒ‡é’ˆä¸äºŒç»´æ•°ç»„
 
-	int int_arr[] = { 10, 20, 30, 40 };
+	int int_arr[] = { 10, 20, 30, 40, 50 };
 	pa = int_arr;
 
 	cout << *++pa << endl;
-	cout << *pa++ << endl; // Çø±ğÓÚ (*pa)++
+	cout << *pa++ << endl; // åŒºåˆ«äº (*pa)++
 	cout << *pa << endl;
-	for (int i = 0; i < 4; i++) {
+
+	*pa++ = 99;
+	cout << *pa << endl;
+	
+	for (int i = 0; i < 5; i++) {
 		cout << "int_arr[" << i << "] = " << int_arr[i]  << endl;
 	}
 	return 0;
