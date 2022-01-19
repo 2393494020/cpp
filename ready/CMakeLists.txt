@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 
-project(play)
+project(ready)
 
-aux_source_directory(string_class src)
+aux_source_directory(oop src)
 
-add_executable(play ${src})
+add_executable(ready ${src})
