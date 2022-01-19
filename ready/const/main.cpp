@@ -2,7 +2,8 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
 	// const 离'谁'近表示'谁'不可以修改
 	// const 修饰的对象先看左边，如果左边没有看右边
 	char str_hello[] = { "hello" };
