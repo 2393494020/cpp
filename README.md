@@ -6,8 +6,9 @@ https://github.com/sr6033/dataStructure-Algorithms
 ## basic facilities
 
 1. 指针
-2. 引用
-3. 左值右值
+2. 数组指针和二维数组
+3. 引用
+4. 左值右值
 
 ## oop
 
