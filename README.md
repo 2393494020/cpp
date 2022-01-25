@@ -21,6 +21,8 @@ https://github.com/sr6033/dataStructure-Algorithms
 8. 虚函数(virtual)
 9. 内联函数(inline)
 
+## stl
+
 ### 相同 class 造出来的 objects 互为 friends(友元)
 
 ### 析构函数
