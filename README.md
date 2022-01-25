@@ -3,6 +3,24 @@ https://github.com/fqxy/DataStructures-Algorithms \
 https://github.com/2604150210/ACM_Algorithm \
 https://github.com/sr6033/dataStructure-Algorithms
 
+## basic facilities
+
+1. 指针
+2. 引用
+3. 左值右值
+
+## oop
+
+1. 成员变量
+2. 成员函数
+3. 构造函数
+4. 拷贝构造函数
+5. 析构函数
+6. 运算符重载
+7. 友元(friend)
+8. 虚函数(virtual)
+9. 内联函数(inline)
+
 ### 相同 class 造出来的 objects 互为 friends(友元)
 
 ### 析构函数
@@ -13,7 +31,7 @@ https://github.com/sr6033/dataStructure-Algorithms
 2. class body 外边的函数可以用 inline 关键字建议编译器将其编译为内联函数
 3. 函数体如果太过复杂编译器不会接受建议
 
-### c 编译过程
+## c/c++ 编译过程
 1. gcc -E hello.c -o hello.i 预处理:宏定义展开,头文件展开
 2. gcc -S hello.i -o hello.s 编译:语法检查,将目标文件编译生成汇编文件
 3. gcc -c hello.s -o hello.o 汇编:将汇编文件生成目标文件(不可以执行)
