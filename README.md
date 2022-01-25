@@ -21,8 +21,6 @@ https://github.com/sr6033/dataStructure-Algorithms
 8. 虚函数(virtual)
 9. 内联函数(inline)
 
-## stl
-
 ### 相同 class 造出来的 objects 互为 friends(友元)
 
 ### 析构函数
@@ -32,6 +30,8 @@ https://github.com/sr6033/dataStructure-Algorithms
 1. class body 里边的函数按语法理解都是内联函数
 2. class body 外边的函数可以用 inline 关键字建议编译器将其编译为内联函数
 3. 函数体如果太过复杂编译器不会接受建议
+
+## stl
 
 ## c/c++ 编译过程
 1. gcc -E hello.c -o hello.i 预处理:宏定义展开,头文件展开
