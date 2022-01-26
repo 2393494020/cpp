@@ -11,6 +11,7 @@ https://github.com/sr6033/dataStructure-Algorithms
 4. 引用
 5. 左值右值
 6. const
+7. auto
 
 ## oop
 
