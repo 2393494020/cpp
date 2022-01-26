@@ -10,10 +10,11 @@ https://github.com/sr6033/dataStructure-Algorithms
 3. 智能指针
 4. 引用
 5. 左值右值
-6. const
-7. auto
-8. using
-9. nullptr
+6. extern
+7. const
+8. auto
+9. using
+10. nullptr
 
 ## oop
 
@@ -40,7 +41,8 @@ https://github.com/sr6033/dataStructure-Algorithms
 ## stl
 
 ## c/c++ 编译过程
-1. gcc -E hello.c -o hello.i 预处理:宏定义展开,头文件展开
-2. gcc -S hello.i -o hello.s 编译:语法检查,将目标文件编译生成汇编文件
-3. gcc -c hello.s -o hello.o 汇编:将汇编文件生成目标文件(不可以执行)
-4. gcc hello.o -o hello.out  链接:链接依赖库到目标文件生成可执行文件
+1. gcc hello.c -save-temps 
+2. gcc -E hello.c -o hello.i 预处理:宏定义展开,头文件展开
+3. gcc -S hello.i -o hello.s 编译:语法检查,将目标文件编译生成汇编文件
+4. gcc -c hello.s -o hello.o 汇编:将汇编文件生成目标文件(不可以执行)
+5. gcc hello.o -o hello.out  链接:链接依赖库到目标文件生成可执行文件
