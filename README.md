@@ -12,6 +12,8 @@ https://github.com/sr6033/dataStructure-Algorithms
 5. 左值右值
 6. const
 7. auto
+8. using
+9. nullptr
 
 ## oop
 
