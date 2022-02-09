@@ -4,6 +4,8 @@
 
 using namespace std;
 
+// 有了指针为什么还需要引用 ?
+// 函数体内的局部变量会随着函数调用结束消亡, 不能将其引用做为返回值
 void swap_by_ref(int &a, int &b)
 {
 	int tmp = a;
