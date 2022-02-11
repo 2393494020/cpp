@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stddef.h>
 
 void mem_explore()
 {
@@ -52,8 +53,37 @@ void mem_explore()
     // int 占4字节空间, 数据高位存储在高地址, 低位存储在低地址
 }
 
+struct Person
+{
+    char gender;
+    int high;
+    char name[64];
+    int income;
+};
+
 int main(int argc, char const *argv[])
 {
-    mem_explore();
+    // mem_explore();
+    // 指针偏移量
+    printf("offset of gender = %d\n", offsetof(struct Person, gender));
+    printf("offset of high = %d\n", offsetof(struct Person, high));
+    printf("offset of name = %d\n", offsetof(struct Person, name));
+    printf("offset of income = %d\n", offsetof(struct Person, income));
+    
+    struct Person person = {'M', 175, {"xiaoming"}, 1230000};
+    char gender = *(char*)((char*)&person + offsetof(struct Person, gender));
+    int high    = *(int*)((char*)&person + offsetof(struct Person, high));
+    char* pn = (char*)((char*)&person + offsetof(struct Person, name));
+    char name[64];
+    for (int i = 0; i < 64; i++)
+    {
+        name[i] = *pn++;
+    }
+    int income  = *(int*)((char*)&person + offsetof(struct Person, income));
+    
+    printf("gender = %c\n", gender);
+    printf("high = %d\n", high);
+    printf("name = %s\n", name);
+    printf("income = %d\n", income);
     return 0;
 }
