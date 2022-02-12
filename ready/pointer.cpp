@@ -4,22 +4,33 @@ using namespace std;
 
 // *p 当做左值的时候表示修改被指空间的内容
 // *p 当做右值的时候表示获取被指空间的内容
+
+void str_cpy(char* str_dest, const char* str_source)
+{
+	// while(*str_source)
+	// {
+	// 	*str_dest++ = *str_source++;
+	// }
+
+	while(*str_dest++ = *str_source++);
+}
+
 int main()
 {
 	int a = 10;
 	int* pa = &a;
 	cout << *pa << endl;
 
-	char str_arr[] = { "hello world" }; // str_arr 是常量, 不可以被重新赋值(不能做左值), 但里边的内容可以修改
+	char c_arr[] = { "hello world" }; // str_arr 是常量, 不可以被重新赋值(不能做左值), 但里边的内容可以修改
 	const char* pstr = "hello world";   // pstr 里边的内容是常量, 不可以修改；但 pstr 可以重新指向新的地址
 
-	str_arr[0] = 'H';
+	c_arr[0] = 'H';
 	pstr = "hello cpp";
 	
-	cout << str_arr << endl;
+	cout << c_arr << endl;
 	cout << pstr << endl;
 
-	pstr = str_arr;
+	pstr = c_arr;
 	cout << pstr << endl;
 	cout << pstr[0] << endl;
 
@@ -45,7 +56,19 @@ int main()
     void* pv = &a;
     printf("void* 指向 int 获取的值:%d\n", *(int*)pv);
 	
-	pv = str_arr;
+	pv = c_arr;
     printf("void* 指向 char 获取的值:%s\n", (char*)pv);
+	
+	// 指针数组(二级指针)
+	string str_arr[] = {
+		"hello",
+		"china"
+	};
+	cout << *(str_arr + 0) << endl;
+	cout << *(str_arr + 1) << endl;
+
+	char str_empty[64] = { 0 }; // 习惯性初始化
+	str_cpy(str_empty, "hello world");
+	cout << str_empty << endl;
 	return 0;
 }
