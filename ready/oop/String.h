@@ -8,7 +8,7 @@ using namespace std;
 class String
 {
 public:
-	String(const char* cdata);
+	String(const char* cdata = 0);
 	// 拷贝构造函数
 	String(const String& source);
 	// assign 操作符
@@ -24,7 +24,7 @@ private:
 	char* c_data;
 };
 
-String::String(const char* cdata = 0)
+String::String(const char* cdata)
 {
 	if (cdata)
 	{
