@@ -9,7 +9,7 @@ https://github.com/sr6033/dataStructure-Algorithms
 2. 数组指针和二维数组
 3. 智能指针
 4. 引用
-5. 内存分块: 指令区, 常量区, 栈区(stack), 堆区(heap); C:\Users\xyz> size xxx.exe
+5. 内存分块: text,data,heap,stack; C:\Users\xyz> size xxx.exe
 6. c/c++ 的数组默认在栈区分配
 7. 左值右值
 8. extern
