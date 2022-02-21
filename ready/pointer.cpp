@@ -21,7 +21,7 @@ int main()
 	int* pa = &a;
 	cout << *pa << endl;
 
-	char c_arr[] = { "hello world" }; // str_arr 是常量, 不可以被重新赋值(不能做左值), 但里边的内容可以修改
+	char c_arr[] = { "hello world" };   // c_arr 是指向数组首元素的常量指针, 不可以被重新赋值(不能做左值), 但里边的内容可以修改
 	const char* pstr = "hello world";   // pstr 里边的内容是常量, 不可以修改；但 pstr 可以重新指向新的地址
 
 	c_arr[0] = 'H';
@@ -33,6 +33,14 @@ int main()
 	pstr = c_arr;
 	cout << pstr << endl;
 	cout << pstr[0] << endl;
+
+	// 以下两种情况发生时, 数组名不是指向数组首元素的地址
+	// 1. sizeof
+	// 2. 取数组地址时
+
+	cout << "sizeof(c_arr) = " << sizeof(c_arr) << endl;
+	cout << "&c_arr = " << &c_arr << endl;
+	cout << "(&c_arr + 1) = " << (&c_arr + 1) << endl;
 
 	pstr = NULL;
 
