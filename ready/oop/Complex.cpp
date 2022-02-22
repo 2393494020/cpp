@@ -21,6 +21,9 @@ double image(const Complex& c)
 Complex Complex::operator + (const Complex& r)
 {
 	cout << "Complex::operator +" << endl;
+	// 在 ms visual studio 环境下运行
+	// c3 = c1 + c2;
+	// 返回 temp 会在 operator = 调用之前触发拷贝构造函数
 	// Complex temp;
 	// temp._real = _real + r._real;
 	// temp._image = _image + r._image;
@@ -81,8 +84,8 @@ int main()
 	cout << c3 << endl;
 
 	// test operator +=
-	c3 += c2;
-	cout << c3 << endl;
+	// c3 += c2;
+	// cout << c3 << endl;
 
 	// test copy construct
 	// Complex c4(c3);
