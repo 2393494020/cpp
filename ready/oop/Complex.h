@@ -14,6 +14,7 @@ public:
 
 	Complex(const Complex& r);
 
+	Complex& operator = (const Complex& r);
 	Complex& operator += (const Complex& r);
 	Complex operator + (const Complex& r);
 

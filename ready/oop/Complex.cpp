@@ -36,6 +36,18 @@ Complex::Complex(const Complex& r)
 	this->_image = r._image;
 }
 
+Complex& Complex::operator = (const Complex& r)
+{
+	cout << "assign " << this << " from:" << &r << endl;
+	if (this != &r)
+	{
+		this->_real = r._real;
+		this->_image = r._image;
+	}
+	
+	return *this;
+}
+
 Complex& Complex::operator += (const Complex& r)
 {
 	return _doapl(this, r);
@@ -73,6 +85,6 @@ int main()
 	cout << c3 << endl;
 
 	// test copy construct
-	Complex c4(c3);
-	cout << c4 << endl;
+	// Complex c4(c3);
+	// cout << c4 << endl;
 }
