@@ -12,7 +12,10 @@ public:
 		cout << "Complex(double real, double image)" << endl;
 	}
 
+	Complex(const Complex& r);
+
 	Complex& operator += (const Complex& r);
+	Complex operator + (const Complex& r);
 
 	// 在 class body 内定义的简单函数会自动成为 inline 函数
 	double real() const { return this->_real; }
