@@ -70,7 +70,7 @@ int main(int argc, char const *argv[])
     printf("offset of name = %d\n", offsetof(struct Person, name));
     printf("offset of income = %d\n", offsetof(struct Person, income));
     
-    struct Person person = {'M', 175, {"xiaoming"}, 1230000};
+    struct Person person = {'M', 175, "xiaoming", 1230000};
     char gender = *(char*)((char*)&person + offsetof(struct Person, gender));
     int high    = *(int*)((char*)&person + offsetof(struct Person, high));
     char* pn = (char*)((char*)&person + offsetof(struct Person, name));
