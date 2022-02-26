@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string.h>
 
 using namespace std;
 
@@ -25,7 +24,7 @@ int main()
 	char c_arr[] = { "hello world" };   // c_arr 是指向数组首元素的常量指针, 不可以被重新赋值(不能做左值), 但里边的内容可以修改
 	const char* pstr = "hello world";   // pstr 里边的内容是常量, 不可以修改；但 pstr 可以重新指向新的地址
 
-	strcpy(c_arr, "hello china");
+	str_cpy(c_arr, "hello china");
 	c_arr[0] = 'H';
 	pstr = "hello cpp";
 	
