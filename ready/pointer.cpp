@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string.h>
 
 using namespace std;
 
@@ -24,6 +25,7 @@ int main()
 	char c_arr[] = { "hello world" };   // c_arr 是指向数组首元素的常量指针, 不可以被重新赋值(不能做左值), 但里边的内容可以修改
 	const char* pstr = "hello world";   // pstr 里边的内容是常量, 不可以修改；但 pstr 可以重新指向新的地址
 
+	strcpy(c_arr, "hello china");
 	c_arr[0] = 'H';
 	pstr = "hello cpp";
 	
@@ -61,11 +63,11 @@ int main()
 	}
 
 	// 万能指针
-    void* pv = &a;
-    printf("void* 指向 int 获取的值:%d\n", *(int*)pv);
+        void* pv = &a;
+        printf("void* 指向 int 获取的值:%d\n", *(int*)pv);
 	
 	pv = c_arr;
-    printf("void* 指向 char 获取的值:%s\n", (char*)pv);
+        printf("void* 指向 char 获取的值:%s\n", (char*)pv);
 	
 	// 指针数组(二级指针)
 	string str_arr[] = {
