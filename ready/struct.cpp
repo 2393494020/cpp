@@ -25,7 +25,7 @@ bool init_linklist(LinkList& l)
 }
 
 // 头插法
-void insert_linklist_head(LinkList& l, int data)
+void insert_linklist_head(LinkList l, int data)
 {
 	if (!l)
 	{
@@ -39,7 +39,7 @@ void insert_linklist_head(LinkList& l, int data)
 }
 
 // 尾插法
-void insert_linklist_tail(LinkList& l, int data)
+void insert_linklist_tail(LinkList l, int data)
 {
 	if (!l)
 	{
@@ -121,31 +121,44 @@ void remove_element(LinkList l, int index)
 // 合并后的新链表依然有序
 void merge_linklist(LinkList lx, LinkList ly, LinkList l)
 {
-	Node* px = lx;
-	Node* py = ly;
-	// if (px->data < py->data)
-	// {
-	// 	l->next = px->next;
-	// }
-	// else
-	// {
-	// 	l->next = py->next;
-	// }
 	Node* p = l;
-
-	while (px->next && py->next)
+	Node* px = lx->next;
+	Node* py = ly->next;
+	while (px && py)
 	{
-		if (px->next->data < py->next->data)
+		if (px->data < py->data)
 		{
-			p->next = px->next;
-			px = px ->next;
+			p->next = px;
+			px = px->next;
 		}
 		else
 		{
-			p->next = py->next;
-			py = py ->next;
+			p->next = py;
+			py = py->next;
 		}
-		cout << p << endl;
+		p = p->next;
+	}
+
+	if (px)
+	{
+		p->next = px;
+	}
+
+	if (py)
+	{
+		p->next = py;
+	}
+
+	if (l->next == lx->next)
+	{
+		ly->next = NULL;
+		delete ly;
+	}
+
+	if (l->next == ly->next)
+	{
+		lx->next = NULL;
+		delete lx;
 	}
 }
 
@@ -153,23 +166,26 @@ void destory_linklist(LinkList& l)
 {
 	if (l == NULL)
 		return;
-	
+
 	Node* p = l;
+	Node* tmp;
+	l = NULL;
 	while (p->next)
 	{
-		Node* tmp = p->next;
+		tmp = p->next;
 		p->next = NULL;
 		delete p;
-
+		p = NULL;
 		p = tmp;
 	}
 
 	delete p;
-	l = NULL;
+	p = NULL;
 }
 
 #define LL_SIZE 10
 #define RANGE 100
+
 
 #if 1
 int main()
@@ -187,6 +203,10 @@ int main()
 			insert_linklist_tail(ly, i + 1);
 	}
 
+	insert_linklist_tail(lx, LL_SIZE + 30);
+	insert_linklist_tail(ly, LL_SIZE + 30);
+	insert_linklist_tail(ly, LL_SIZE + 50);
+
 	cout << "链表一" << endl;
 	print_linklist(lx);
 	
@@ -194,11 +214,9 @@ int main()
 	print_linklist(ly);
 
 	merge_linklist(lx, ly, l);
-
 	cout << "合并后" << endl;
 	print_linklist(l);
 
-	//destory_linklist(l);
 	return 0;
 }
 #endif
