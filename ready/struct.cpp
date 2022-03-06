@@ -164,23 +164,14 @@ void merge_linklist(LinkList lx, LinkList ly, LinkList l)
 
 void destory_linklist(LinkList& l)
 {
-	if (l == NULL)
-		return;
-
 	Node* p = l;
-	Node* tmp;
-	l = NULL;
-	while (p->next)
+	while (p)
 	{
-		tmp = p->next;
+		l = l->next;
 		p->next = NULL;
 		delete p;
-		p = NULL;
-		p = tmp;
+		p = l;
 	}
-
-	delete p;
-	p = NULL;
 }
 
 #define LL_SIZE 10
