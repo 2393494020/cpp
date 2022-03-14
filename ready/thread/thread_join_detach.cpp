@@ -3,10 +3,10 @@
 
 using namespace std;
 
-// �������߳�
-// 1. ����
-// 2. ��
-// 3. lambda ����ʽ
+// 创建子线程
+// 1. 函数
+// 2. 类
+// 3. lambda 表达式
 #if 0
 void greeting()
 {
@@ -18,9 +18,9 @@ void greeting()
 
 int main()
 {
-	thread t(greeting); // ���ú�����Ϊ��ִ�ж��󴴽�һ�����̲߳�ִ��
-	//t.join(); // �������߳�, �ȴ����߳�ִ�н���
-	t.detach(); // �����̷߳���, ���̲߳��ٿ������߳�, ���߳�������ʱ�⸺������; ���̲߳�Ҫָ�����̵߳���Դ, �������������Ԥ�ϵĺ��
+	thread t(greeting); // 利用函数做为可执行对象创建一个子线程并执行
+	//t.join(); // 阻塞主线程, 等待子线程执行结束
+	t.detach(); // 与子线程分离, 主线程不再控制子线程, 子线程由运行时库负责清理; 子线程不要指向主线程的资源, 否则会引发不可预料的后果
 	
 	for (int i = 1; i <= 3; i++)
 	{
@@ -37,7 +37,7 @@ class TreadChild
 {
 public:
 	TreadChild();
-	TreadChild(TreadChild& tc);
+	TreadChild(const TreadChild& tc);
 	void operator()();
 	~TreadChild();
 };
@@ -47,7 +47,7 @@ TreadChild::TreadChild()
 	cout << "TreadChild():" << this << endl;
 }
 
-TreadChild::TreadChild(TreadChild& source)
+TreadChild::TreadChild(const TreadChild& source)
 {
 	cout << this << " copy from " << &source << endl;
 }
@@ -68,8 +68,8 @@ TreadChild::~TreadChild()
 int main()
 {
 	TreadChild tc;
-	// 1. ��Ҫ��������ʱ������Ϊ�����������߳�
-	// 2. ���̵߳Ķ��������̵߳Ķ��󸱱�, ���Ե����߳̽�������ʱ, ���߳��еĶ���û�б�����
+	// 1. 不要将匿名临时对象做为参数创建子线程
+	// 2. 子线程的对象是主线程的对象副本, 所以当主线程结束运行时, 子线程中的对象没有被销毁
 	thread t(tc);
 	t.join();
 }
