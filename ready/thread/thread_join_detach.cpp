@@ -3,10 +3,10 @@
 
 using namespace std;
 
-// åˆ›å»ºå­çº¿ç¨‹
-// 1. å‡½æ•°
-// 2. ç±»
-// 3. lambda è¡¨è¾¾å¼
+// ´´½¨×ÓÏß³Ì
+// 1. º¯Êý
+// 2. Àà
+// 3. lambda ±í´ïÊ½
 #if 0
 void greeting()
 {
@@ -18,9 +18,9 @@ void greeting()
 
 int main()
 {
-	thread t(greeting); // åˆ©ç”¨å‡½æ•°åšä¸ºå¯æ‰§è¡Œå¯¹è±¡åˆ›å»ºä¸€ä¸ªå­çº¿ç¨‹å¹¶æ‰§è¡Œ
-	//t.join(); // é˜»å¡žä¸»çº¿ç¨‹, ç­‰å¾…å­çº¿ç¨‹æ‰§è¡Œç»“æŸ
-	t.detach(); // ä¸Žå­çº¿ç¨‹åˆ†ç¦», ä¸»çº¿ç¨‹ä¸å†æŽ§åˆ¶å­çº¿ç¨‹, å­çº¿ç¨‹ç”±è¿è¡Œæ—¶åº“è´Ÿè´£æ¸…ç†; å­çº¿ç¨‹ä¸è¦æŒ‡å‘ä¸»çº¿ç¨‹çš„èµ„æº, å¦åˆ™ä¼šå¼•å‘ä¸å¯é¢„æ–™çš„åŽæžœ
+	thread t(greeting); // ÀûÓÃº¯Êý×öÎª¿ÉÖ´ÐÐ¶ÔÏó´´½¨Ò»¸ö×ÓÏß³Ì²¢Ö´ÐÐ
+	//t.join(); // ×èÈûÖ÷Ïß³Ì, µÈ´ý×ÓÏß³ÌÖ´ÐÐ½áÊø
+	t.detach(); // Óë×ÓÏß³Ì·ÖÀë, Ö÷Ïß³Ì²»ÔÙ¿ØÖÆ×ÓÏß³Ì, ×ÓÏß³ÌÓÉÔËÐÐÊ±¿â¸ºÔðÇåÀí; ×ÓÏß³Ì²»ÒªÖ¸ÏòÖ÷Ïß³ÌµÄ×ÊÔ´, ·ñÔò»áÒý·¢²»¿ÉÔ¤ÁÏµÄºó¹û
 	
 	for (int i = 1; i <= 3; i++)
 	{
@@ -38,7 +38,7 @@ class TreadChild
 public:
 	TreadChild();
 	TreadChild(const TreadChild& tc);
-	void operator()();
+	void operator()() const;
 	~TreadChild();
 };
 
@@ -52,7 +52,7 @@ TreadChild::TreadChild(const TreadChild& source)
 	cout << this << " copy from " << &source << endl;
 }
 
-void TreadChild::operator()()
+void TreadChild::operator()() const
 {
 	for (int i = 1; i <= 3; i++)
 	{
@@ -68,15 +68,16 @@ TreadChild::~TreadChild()
 int main()
 {
 	TreadChild tc;
-	// 1. ä¸è¦å°†åŒ¿åä¸´æ—¶å¯¹è±¡åšä¸ºå‚æ•°åˆ›å»ºå­çº¿ç¨‹
-	// 2. å­çº¿ç¨‹çš„å¯¹è±¡æ˜¯ä¸»çº¿ç¨‹çš„å¯¹è±¡å‰¯æœ¬, æ‰€ä»¥å½“ä¸»çº¿ç¨‹ç»“æŸè¿è¡Œæ—¶, å­çº¿ç¨‹ä¸­çš„å¯¹è±¡æ²¡æœ‰è¢«é”€æ¯
+	// 1. ²»Òª½«ÄäÃûÁÙÊ±¶ÔÏó×öÎª²ÎÊý´´½¨×ÓÏß³Ì
+	// 2. ×ÓÏß³ÌµÄ¶ÔÏóÊÇÖ÷Ïß³ÌµÄ¶ÔÏó¸±±¾, ËùÒÔµ±Ö÷Ïß³Ì½áÊøÔËÐÐÊ±, ×ÓÏß³ÌÖÐµÄ¶ÔÏóÃ»ÓÐ±»Ïú»Ù
 	thread t(tc);
 	t.join();
+	return 0;
 }
 
 #endif
 
-#if 1
+#if 0
 
 int main()
 {
@@ -89,6 +90,79 @@ int main()
 	};
 	thread t(lambdaT);
 	t.join();
+	return 0;
+}
+
+#endif
+
+#if 1
+// ¸øÏß³Ìµ÷ÓÃº¯Êý´«²Î
+// 1. ÒýÓÃ´«µÝ×îÖÕÒ²ÊÇÖµ´«µÝ
+// 2. Èç¹ûÓÃ detach, ´«Ö¸ÕëÊ±±ÜÃâ×ÓÏß³ÌÖ¸ÏòÖ÷Ïß³ÌÕ»¿Õ¼ä×ÊÔ´
+// 3. ´«¶ÔÏóÊ±, Ö±½Ó´«¹¹ÔìºÃµÄ¶ÔÏó, ±ÜÃâÒþÊ½ÀàÐÍ×ª»»
+
+void print_plus(const int& i, const char* pc)
+{
+	cout << "child &i = " << &i << endl;
+	printf("child &hello = %p\n", pc);
+}
+
+void print_pp(const int& i, const string& hello)
+{
+}
+
+class Integer
+{
+public:
+	int _i;
+	Integer()
+	{
+		cout << this << " Integer()" << endl;
+	}
+
+	Integer(int i) : _i(i)
+	{
+		cout << this << " Integer(int i)" << endl;
+	}
+
+	Integer(const Integer& integer) : _i(integer._i)
+	{
+		cout << this << " copy from " << &integer << endl;
+	}
+
+	~Integer()
+	{
+		cout << this << " ~Integer()" << endl;
+	}
+
+};
+
+void print_integer(const int& i, const Integer& integer)
+{
+	cout << integer._i << endl;
+}
+
+int main()
+{
+	int i = 99;
+	char hello[] = {"hello cpp"};
+
+	cout << "main &i = " << &i << endl;
+	cout << "main &hello = " << &hello << endl;
+
+	// thread t1(print_plus, i, hello);
+	// t1.join(); // ±ÜÃâ detach
+	
+	// thread t2(print_pp, i, hello); // bugÒþ»¼, ÓÐ¿ÉÄÜÖ÷Ïß³ÌÖ´ÐÐÍê, ÒþÊ½×ª»»»¹Ã»Íê³É
+	// t2.detach();
+
+	// thread t3(print_pp, i, string(hello)); // ´«µÝÓÃ¹¹Ôì¶ÔÏó
+	// t3.detach();
+
+	// ÑéÖ¤
+	thread t4(print_integer, i, Integer(i));
+	t4.join();
+	return 0;
 }
 
 #endif
