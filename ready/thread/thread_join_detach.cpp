@@ -3,10 +3,10 @@
 
 using namespace std;
 
-// �������߳�
-// 1. ����
-// 2. ��
-// 3. lambda ����ʽ
+// 创建子线程
+// 1. 函数
+// 2. 类
+// 3. lambda 表达式
 #if 0
 void greeting()
 {
@@ -18,9 +18,9 @@ void greeting()
 
 int main()
 {
-	thread t(greeting); // ���ú�����Ϊ��ִ�ж��󴴽�һ�����̲߳�ִ��
-	//t.join(); // �������߳�, �ȴ����߳�ִ�н���
-	t.detach(); // �����̷߳���, ���̲߳��ٿ������߳�, ���߳�������ʱ�⸺������; ���̲߳�Ҫָ�����̵߳���Դ, �������������Ԥ�ϵĺ��
+	thread t(greeting); // 利用函数做为可执行对象创建一个子线程并执行
+	//t.join(); // 阻塞主线程, 等待子线程执行结束
+	t.detach(); // 与子线程分离, 主线程不再控制子线程, 子线程由运行时库负责清理; 子线程不要指向主线程的资源, 否则会引发不可预料的后果
 	
 	for (int i = 1; i <= 3; i++)
 	{
@@ -68,8 +68,8 @@ TreadChild::~TreadChild()
 int main()
 {
 	TreadChild tc;
-	// 1. ��Ҫ��������ʱ������Ϊ�����������߳�
-	// 2. ���̵߳Ķ��������̵߳Ķ��󸱱�, ���Ե����߳̽�������ʱ, ���߳��еĶ���û�б�����
+	// 1. 不要将匿名临时对象做为参数创建子线程
+	// 2. 子线程的对象是主线程的对象副本, 所以当主线程结束运行时, 子线程中的对象没有被销毁
 	thread t(tc);
 	t.join();
 	return 0;
@@ -96,10 +96,10 @@ int main()
 #endif
 
 #if 1
-// ���̵߳��ú�������
-// 1. ���ô�������Ҳ��ֵ����
-// 2. ����� detach, ��ָ��ʱ�������߳�ָ�����߳�ջ�ռ���Դ
-// 3. ������ʱ, ֱ�Ӵ�����õĶ���, ������ʽ����ת��
+// 给线程调用函数传参
+// 1. 引用传递最终也是值传递
+// 2. 如果用 detach, 传指针时避免子线程指向主线程栈空间资源
+// 3. 传对象时, 直接传构造好的对象, 避免隐式类型转换
 
 void print_plus(const int& i, const char* pc)
 {
@@ -151,15 +151,16 @@ int main()
 	cout << "main &hello = " << &hello << endl;
 
 	// thread t1(print_plus, i, hello);
-	// t1.join(); // ���� detach
+	// t1.join(); // 避免 detach
 	
-	// thread t2(print_pp, i, hello); // bug����, �п������߳�ִ����, ��ʽת����û���
+	// thread t2(print_pp, i, hello); // bug隐患, 有可能主线程执行完, 隐式转换还没完成
 	// t2.detach();
 
-	// thread t3(print_pp, i, string(hello)); // �����ù������
+	// thread t3(print_pp, i, string(hello)); // 传递用构造对象
 	// t3.detach();
 
-	// ��֤
+	// 验证
+	// thread t4(print_integer, i, i);
 	thread t4(print_integer, i, Integer(i));
 	t4.join();
 	return 0;
