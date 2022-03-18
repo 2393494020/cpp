@@ -1,12 +1,13 @@
 #include <iostream>
 #include <thread>
+#include <windows.h>
 
 using namespace std;
 
-// åˆ›å»ºå­çº¿ç¨‹
-// 1. å‡½æ•°
-// 2. ç±»
-// 3. lambda è¡¨è¾¾å¼
+// ´´½¨×ÓÏß³Ì
+// 1. º¯Êý
+// 2. Àà
+// 3. lambda ±í´ïÊ½
 #if 0
 void greeting()
 {
@@ -18,9 +19,9 @@ void greeting()
 
 int main()
 {
-	thread t(greeting); // åˆ©ç”¨å‡½æ•°åšä¸ºå¯æ‰§è¡Œå¯¹è±¡åˆ›å»ºä¸€ä¸ªå­çº¿ç¨‹å¹¶æ‰§è¡Œ
-	//t.join(); // é˜»å¡žä¸»çº¿ç¨‹, ç­‰å¾…å­çº¿ç¨‹æ‰§è¡Œç»“æŸ
-	t.detach(); // ä¸Žå­çº¿ç¨‹åˆ†ç¦», ä¸»çº¿ç¨‹ä¸å†æŽ§åˆ¶å­çº¿ç¨‹, å­çº¿ç¨‹ç”±è¿è¡Œæ—¶åº“è´Ÿè´£æ¸…ç†; å­çº¿ç¨‹ä¸è¦æŒ‡å‘ä¸»çº¿ç¨‹çš„èµ„æº, å¦åˆ™ä¼šå¼•å‘ä¸å¯é¢„æ–™çš„åŽæžœ
+	thread t(greeting); // ÀûÓÃº¯Êý×öÎª¿ÉÖ´ÐÐ¶ÔÏó´´½¨Ò»¸ö×ÓÏß³Ì²¢Ö´ÐÐ
+	//t.join(); // ×èÈûÖ÷Ïß³Ì, µÈ´ý×ÓÏß³ÌÖ´ÐÐ½áÊø
+	t.detach(); // Óë×ÓÏß³Ì·ÖÀë, Ö÷Ïß³Ì²»ÔÙ¿ØÖÆ×ÓÏß³Ì, ×ÓÏß³ÌÓÉÔËÐÐÊ±¿â¸ºÔðÇåÀí; ×ÓÏß³Ì²»ÒªÖ¸ÏòÖ÷Ïß³ÌµÄ×ÊÔ´, ·ñÔò»áÒý·¢²»¿ÉÔ¤ÁÏµÄºó¹û
 	
 	for (int i = 1; i <= 3; i++)
 	{
@@ -68,8 +69,7 @@ TreadChild::~TreadChild()
 int main()
 {
 	TreadChild tc;
-	// 1. ä¸è¦å°†åŒ¿åä¸´æ—¶å¯¹è±¡åšä¸ºå‚æ•°åˆ›å»ºå­çº¿ç¨‹
-	// 2. å­çº¿ç¨‹çš„å¯¹è±¡æ˜¯ä¸»çº¿ç¨‹çš„å¯¹è±¡å‰¯æœ¬, æ‰€ä»¥å½“ä¸»çº¿ç¨‹ç»“æŸè¿è¡Œæ—¶, å­çº¿ç¨‹ä¸­çš„å¯¹è±¡æ²¡æœ‰è¢«é”€æ¯
+	// ×ÓÏß³ÌµÄ¶ÔÏóÊÇÖ÷Ïß³ÌµÄ¶ÔÏó¸±±¾, ËùÒÔµ±Ö÷Ïß³Ì½áÊøÔËÐÐÊ±, Ö÷Ïß³ÌµÄ¶ÔÏó±»Ïú»Ù²»Ó°Ïì×ÓÏß³ÌµÄ¶ÔÏó¸±±¾
 	thread t(tc);
 	t.join();
 	return 0;
@@ -96,10 +96,10 @@ int main()
 #endif
 
 #if 1
-// ç»™çº¿ç¨‹è°ƒç”¨å‡½æ•°ä¼ å‚
-// 1. å¼•ç”¨ä¼ é€’æœ€ç»ˆä¹Ÿæ˜¯å€¼ä¼ é€’
-// 2. å¦‚æžœç”¨ detach, ä¼ æŒ‡é’ˆæ—¶é¿å…å­çº¿ç¨‹æŒ‡å‘ä¸»çº¿ç¨‹æ ˆç©ºé—´èµ„æº
-// 3. ä¼ å¯¹è±¡æ—¶, ç›´æŽ¥ä¼ æž„é€ å¥½çš„å¯¹è±¡, é¿å…éšå¼ç±»åž‹è½¬æ¢
+// ¸øÏß³Ìµ÷ÓÃº¯Êý´«²Î
+// 1. ÒýÓÃ´«µÝ×îÖÕÒ²ÊÇÖµ´«µÝ
+// 2. Èç¹ûÓÃ detach, ´«Ö¸ÕëÊ±±ÜÃâ×ÓÏß³ÌÖ¸ÏòÖ÷Ïß³ÌÕ»¿Õ¼ä×ÊÔ´
+// 3. ´«¶ÔÏóÊ±, Ö±½Ó´«¹¹ÔìºÃµÄ¶ÔÏó, ±ÜÃâÒþÊ½ÀàÐÍ×ª»»
 
 void print_plus(const int& i, const char* pc)
 {
@@ -114,32 +114,35 @@ void print_pp(const int& i, const string& hello)
 class Integer
 {
 public:
-	int _i;
-	Integer()
-	{
-		cout << this << " Integer()" << endl;
-	}
+	mutable int _i;
 
 	Integer(int i) : _i(i)
 	{
-		cout << this << " Integer(int i)" << endl;
+		cout << this << " Integer(int i)" << " in thread:" << std::this_thread::get_id() << endl;
 	}
 
 	Integer(const Integer& integer) : _i(integer._i)
 	{
-		cout << this << " copy from " << &integer << endl;
+		cout << this << " copy from " << &integer << " in thread:" << std::this_thread::get_id() << endl;
 	}
 
 	~Integer()
 	{
-		cout << this << " ~Integer()" << endl;
+		cout << this << " ~Integer()" << " in thread:" << std::this_thread::get_id() << endl;
 	}
 
+	void print_integer()
+	{
+		Sleep(100);
+		cout << this << " print_integer in thread:" << std::this_thread::get_id() << endl;
+	}
 };
 
-void print_integer(const int& i, const Integer& integer)
+void print_integer(const Integer& integer)
 {
-	cout << integer._i << endl;
+	Sleep(100);
+	integer._i = 199;
+	cout << &integer << " print_integer in thread:" << std::this_thread::get_id() << endl;
 }
 
 int main()
@@ -151,18 +154,29 @@ int main()
 	cout << "main &hello = " << &hello << endl;
 
 	// thread t1(print_plus, i, hello);
-	// t1.join(); // é¿å… detach
+	// t1.join(); // ±ÜÃâ detach
 	
-	// thread t2(print_pp, i, hello); // bugéšæ‚£, æœ‰å¯èƒ½ä¸»çº¿ç¨‹æ‰§è¡Œå®Œ, éšå¼è½¬æ¢è¿˜æ²¡å®Œæˆ
+	// thread t2(print_pp, i, hello); // bugÒþ»¼, ÓÐ¿ÉÄÜÖ÷Ïß³ÌÖ´ÐÐÍê, ÒþÊ½×ª»»»¹Ã»Íê³É( hello »áÔÚ×ÓÏß³Ì´«Èë string ¹¹Ôìº¯Êý, ´´½¨³öÐÂµÄ string ¶ÔÏó )
 	// t2.detach();
 
-	// thread t3(print_pp, i, string(hello)); // ä¼ é€’ç”¨æž„é€ å¯¹è±¡
+	// thread t3(print_pp, i, string(hello)); // ´«µÝÓÃ¹¹Ôì¶ÔÏó
 	// t3.detach();
 
-	// éªŒè¯
-	// thread t4(print_integer, i, i);
-	thread t4(print_integer, i, Integer(i));
-	t4.join();
+	// ÑéÖ¤
+	cout << "main thread:" << std::this_thread::get_id() << endl;
+	// thread t4(print_integer, Integer(i)); // 1. Integer ÀàµÄÄäÃûÁÙÊ±¶ÔÏóÔÚÖ÷Ïß³Ì¹¹ÔìÍê³É; 2. µ÷ÓÃ¿½±´¹¹Ôìº¯Êý´´½¨¶ÔÏó¸±±¾´«¸ø×ÓÏß³Ì
+	// t4.join();
+
+	// ×ÓÏß³ÌÐÞ¸ÄÖ÷Ïß³ÌµÄ±äÁ¿Öµ std::ref
+	// Integer mi(i);
+	// thread t5(print_integer, std::ref(mi));
+	// t5.join();
+	// cout << mi._i << endl;
+
+	// ×ÓÏß³Ìµ÷ÓÃÀàµÄ³ÉÔ±·½·¨
+	Integer ti(i);
+	thread t6(&Integer::print_integer, ti);
+	t6.join();
 	return 0;
 }
 
