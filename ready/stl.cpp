@@ -251,8 +251,8 @@ int main(int argc, char const *argv[])
 	Stu<int> stu_b(1001, 21);
 	print_stu_t_t(stu_b);
 	
-	Stu<int> stu_c(1002, 22);
-	print_stu_t<Stu<int>>(stu_c);
+	Stu<string, string> stu_c("1002", "22");
+	print_stu_t<Stu<string, string>>(stu_c);
 	return 0;
 }
 
