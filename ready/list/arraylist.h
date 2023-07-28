@@ -27,6 +27,7 @@ public:
 
     size_t size() const;
     T operator[](size_t i) const;
+    ArrayList<T>& operator=(const ArrayList<T> &arrayList);
     void traverse() const;
     void push_back(const T &value);
 
@@ -67,7 +68,7 @@ ArrayList<T>::ArrayList(size_t capacity_) : capacity(capacity_)
 {
     data = new T[capacity_];
     length = 0;
-    cout << "construct: require capacity" << endl;
+    cout << "construct: with capacity" << endl;
 }
 
 template <class T>
@@ -87,11 +88,29 @@ size_t ArrayList<T>::size() const
 template <class T>
 T ArrayList<T>::operator[](size_t i) const
 {
+    cout << "operator[]" << endl;
     if (0 <= i && i < length)
     {
         return data[i];
     }
     throw out_of_range("out of array index");
+}
+
+template <class T>
+ArrayList<T>& ArrayList<T>::operator=(const ArrayList<T> &src_list)
+{
+    cout << "operator=" << endl;
+    if (this == &src_list)
+        return *this;
+
+    delete[] data;
+    data = new T[src_list.capacity];
+    length = src_list.length;
+    for (size_t i = 0; i < length; i++)
+    {
+        data[i] = src_list.data[i];
+    }
+    return *this;
 }
 
 template <class T>

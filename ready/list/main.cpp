@@ -24,19 +24,35 @@ int main1(int argc, char const *argv[])
     return 0;
 }
 #endif
-#if 0
-int main2(int argc, char const *argv[])
+#if 1
+int main(int argc, char const *argv[])
 {
     LinkedList<int> local_list;
-    for (int i = 0; i < 150000; i++)
+    for (int i = 0; i < 5; i++)
     {
         local_list.push_back(i + 1);
     }
 
+    cout << "local_list1.size = " << local_list.size() << endl;
+    local_list.print_list();
+
     return 0;
 }
 #endif
-#if 1
+#if 0
+int main(int argc, char const *argv[])
+{
+    ArrayList<int> local_list1(100);
+    for (int i = 0; i < 15000000; i++)
+    {
+        local_list1.push_back(i + 1);
+    }
+
+    cout << "local_list1.size = " << local_list1.size() << endl;
+    return 0;
+}
+#endif
+#if 0
 int main(int argc, char const *argv[])
 {
     ArrayList<int> local_list1(100);
